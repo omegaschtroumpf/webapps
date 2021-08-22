@@ -1,0 +1,156 @@
+<!DOCTYPE html>  
+<html> 
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">   
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">   
+    <meta name="MobileOptimized" content="320"/>   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <title>Random Jazz Changes</title>  
+    <script>
+        var keys = new Array(); 
+        var prog = new Array(); 
+        var pr251 = new Array();
+        var prsus = new Array(); 
+        var prphry = new Array();
+        var prtt = new Array(); 
+        var prtt251 = new Array();
+        var prlh = new Array();
+        var t; 
+        var combo=0; 
+        var flipping=0; 
+        var speed=0;
+        keys[0] = 'A';
+        keys[1] = 'Ab';
+        keys[2] = 'B';
+        keys[3] = 'Bb';
+        keys[4] = 'C';
+        keys[5] = 'D';
+        keys[6] = 'Db';
+        keys[7] = 'E';
+        keys[8] = 'Eb';
+        keys[9] = 'F';
+        keys[10] = 'F#';
+        keys[11] = 'G';
+        pr251[0] = 'ii-V-I root'; 
+        pr251[1] = 'ii-V-I 1st'; 
+        pr251[2] = "ii-V-I 2nd"; 
+        prsus[0] = "Vsus-I root";
+        prsus[1] = "Vsus-I 1st";
+        prsus[2] = "Vsus-I 2nd" 
+        prphry[0] = "Phry-I";
+        prtt[0] = "TT V root";
+        prtt[1] = "TT V 1st";
+        prtt[2] = "TT V 2nd";
+        prtt251[0] = "TT ii-V root";
+        prtt251[1] = "TT ii-V 1st";
+        prtt251[2] = "TT ii-V 2nd";
+        prlh[0] = "ii-V-I Left Hand A";
+        prlh[1] = "ii-V-I Left Hand B";
+
+        buildProg();
+        function buildProg() {
+            i = 0;
+            prog = new Array();
+            if (document.getElementById("pr251check").checked) {
+                for (j=0; j< pr251.length; j++) {
+                    prog[i] = pr251[j];
+                    i++;
+                }
+            }
+            if (document.getElementById("prsuscheck").checked) {
+                for (j=0; j< prsus.length; j++) {
+                    prog[i] = prsus[j];
+                    i++;
+                }
+            }
+            if (document.getElementById("prphrycheck").checked) {
+                for (j=0; j< prphry.length; j++) {
+                    prog[i] = prphry[j];
+                    i++;
+                }
+            }
+            if (document.getElementById("prttcheck").checked) {
+                for (j=0; j< prtt.length; j++) {
+                    prog[i] = prtt[j];
+                    i++;
+                }
+            }
+            if (document.getElementById("prtt251check").checked) {
+                for (j=0; j< prtt251.length; j++) {
+                    prog[i] = prtt251[j];
+                    i++;
+                }
+            }
+            if (document.getElementById("prlhcheck").checked) {
+                for (j=0; j< prlh.length; j++) {
+                    prog[i] = prlh[j];
+                    i++;
+                }
+            }
+        }
+        function newKeyProg(){
+        document.getElementById("keyprog").innerText = keys[Math.floor(Math.random() * keys.length)] + " : " + prog[Math.floor(Math.random() * prog.length)];   
+        }      
+        
+        function doAutoChange(){ 
+            newKeyProg();
+            changeseconds = document.getElementById("timer").value;
+        if (changeseconds >0){         
+        changing=1;   
+        speed=changeseconds*1000; 
+        clearInterval(t);     
+        t=setInterval(function(){ newKeyProg()}, speed);     
+        }
+        else stopChange();
+        } 
+        function stopChange() {     
+        clearInterval(t);     
+        changing=0; 
+        } 
+    </script>  
+    <style>
+        body {
+        font-family:arial, helvetica;
+        text-align: center;
+        background-color:steelblue;
+        color:white;
+        }
+        #container {
+            font-size:48px
+        }
+        .big {
+            font-size:36px;
+        }
+        .bigcheck {
+            height:18px;
+            width:18px
+        }
+    </style>  
+</head>  
+<body>   
+    <div id="container">
+        <h1 id="keyprog" onclick="newKeyProg()">Start the Timer</h1>
+        <input id="timer" onclick="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="10" step="1" value="10"/>
+        <input id ="thebutton" type="button" value="10 seconds" onclick="doAutoChange()" />
+        <br />
+        <div class="big">
+            <input id ="pr251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="pr251check">ii-V-I</label>
+            <input id ="prlhcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prlhcheck">Left Hand ii-V-I</label>
+            <br />
+            <input id ="prsuscheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prsuscheck">sus</label>
+            <input id ="prphrycheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prphrycheck">Phrygian</label>
+            <br />
+            <input id ="prttcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prttcheck">Tritone</label>
+            <input id ="prtt251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prtt251check">Tritone ii-V-I</label>
+        </div>
+    </div>
+</body> 
+</html> 
