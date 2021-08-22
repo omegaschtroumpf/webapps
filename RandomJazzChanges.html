@@ -132,7 +132,7 @@
 <body>   
     <div id="container">
         <h1 id="keyprog" onclick="newKeyProg()">Start the Timer</h1>
-        <input id="timer" onclick="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="10" step="1" value="10"/>
+        <input id="timer" onchange="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="10" step="1" value="10"/>
         <input id ="thebutton" type="button" value="10 seconds" onclick="doAutoChange()" />
         <br />
         <div class="big">
