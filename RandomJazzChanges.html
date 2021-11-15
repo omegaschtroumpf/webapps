@@ -33,65 +33,91 @@
         keys[9] = 'F';
         keys[10] = 'F#';
         keys[11] = 'G';
-        pr251[0] = 'ii-V-I root'; 
-        pr251[1] = 'ii-V-I 1st'; 
-        pr251[2] = "ii-V-I 2nd"; 
-        prsus[0] = "Vsus-I root";
-        prsus[1] = "Vsus-I 1st";
-        prsus[2] = "Vsus-I 2nd" 
-        prphry[0] = "Phry-I";
-        prtt[0] = "TT V root";
-        prtt[1] = "TT V 1st";
-        prtt[2] = "TT V 2nd";
-        prtt251[0] = "TT ii-V root";
-        prtt251[1] = "TT ii-V 1st";
-        prtt251[2] = "TT ii-V 2nd";
-        prlh[0] = "ii-V-I LH A";
-        prlh[1] = "ii-V-I LH B";
+        pr251[0] = 'ii-V<sup>7</sup>-I root'; 
+        pr251[1] = 'ii-V<sup>7</sup>-I 1st'; 
+        pr251[2] = "ii-V<sup>7</sup>-I 2nd"; 
+        prsus[0] = "Vsus-I root<sup>&nbsp</sup>";
+        prsus[1] = "Vsus-I 1st<sup>&nbsp</sup>";
+        prsus[2] = "Vsus-I 2nd<sup>&nbsp</sup>" 
+        prphry[0] = "Phry-I<sup>&nbsp</sup>";
+        prtt[0] = "TT V<sup>7</sup> root";
+        prtt[1] = "TT V<sup>7</sup> 1st";
+        prtt[2] = "TT V<sup>7</sup> 2nd";
+        prtt251[0] = "TT ii-V<sup>7</sup> root";
+        prtt251[1] = "TT ii-V<sup>7</sup> 1st";
+        prtt251[2] = "TT ii-V<sup>7</sup> 2nd";
+        prlh[0] = "ii-V<sup>7</sup>-I LH A";
+        prlh[1] = "ii-V<sup>7</sup>-I LH B";
 
         buildProg();
         function buildProg() {
             i = 0;
             prog = new Array();
             if (document.getElementById("pr251check").checked) {
-                for (j=0; j< pr251.length; j++) {
-                    prog[i] = pr251[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< pr251.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + pr251[j];
+                        i++;
+                    }
                 }
             }
             if (document.getElementById("prsuscheck").checked) {
-                for (j=0; j< prsus.length; j++) {
-                    prog[i] = prsus[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prsus.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prsus[j];
+                        i++;
+                    }
                 }
             }
             if (document.getElementById("prphrycheck").checked) {
-                for (j=0; j< prphry.length; j++) {
-                    prog[i] = prphry[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prphry.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prphry[j];
+                        i++;
+                    }
                 }
             }
             if (document.getElementById("prttcheck").checked) {
-                for (j=0; j< prtt.length; j++) {
-                    prog[i] = prtt[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prtt.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prtt[j];
+                        i++;
+                    }
                 }
             }
             if (document.getElementById("prtt251check").checked) {
-                for (j=0; j< prtt251.length; j++) {
-                    prog[i] = prtt251[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prtt251.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prtt251[j];
+                        i++;
+                    }
                 }
             }
             if (document.getElementById("prlhcheck").checked) {
-                for (j=0; j< prlh.length; j++) {
-                    prog[i] = prlh[j];
-                    i++;
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prlh.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prlh[j];
+                        i++;
+                    }
                 }
             }
+            //randomize
+            for (i = prog.length -1; i > 0; i--) {
+                j = Math.floor(Math.random() * i);
+                k = prog[i];
+                prog[i] = prog[j];
+                prog[j] = k;
+            }
+            //document.getElementById("progstring").innerHTML = prog.toString(); 
         }
         function newKeyProg(){
-        document.getElementById("keyprog").innerText = keys[Math.floor(Math.random() * keys.length)] + " : " + prog[Math.floor(Math.random() * prog.length)];   
+            if (prog.length == 0) buildProg();
+            document.getElementById("howMany").innerHTML = prog.length  ;
+            document.getElementById("keyprog").innerHTML = prog.pop();
+            clearInterval(t);
+            t=setInterval(function(){ newKeyProg()}, speed);
+
+
         }      
         
         function doAutoChange(){ 
@@ -117,11 +143,18 @@
         background-color:steelblue;
         color:white;
         }
-        #container {
-            font-size:48px
+        .keytext {
+            height:136px;
+            font-size:112px;
+            margin:2px;
         }
         .big {
             font-size:36px;
+        }
+        .small {
+            height:14px;
+            margin:0px;
+            font-size:14px;
         }
         .bigcheck {
             height:18px;
@@ -131,15 +164,16 @@
 </head>  
 <body>   
     <div id="container">
-        <h1 id="keyprog" onclick="newKeyProg()">Start the Timer</h1>
+        <h1 id="keyprog" class="keytext" onclick="newKeyProg()"><sup>&nbsp</sup>Start the Timer</h1>
+        <p id="howMany" class="small"></p>
         <input id="timer" onchange="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="10" step="1" value="10"/>
         <input id ="thebutton" type="button" value="10 seconds" onclick="doAutoChange()" />
         <br />
         <div class="big">
             <input id ="pr251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="pr251check">ii-V-I</label>
+            <label for="pr251check">ii-V<sup>7</sup>-I</label>
             <input id ="prlhcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prlhcheck">Left Hand ii-V-I</label>
+            <label for="prlhcheck">Left Hand ii-V<sup>7</sup>-I</label>
             <br />
             <input id ="prsuscheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
             <label for="prsuscheck">sus</label>
@@ -147,10 +181,12 @@
             <label for="prphrycheck">Phrygian</label>
             <br />
             <input id ="prttcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prttcheck">Tritone</label>
+            <label for="prttcheck">Tritone V<sup>7</sup></label>
             <input id ="prtt251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prtt251check">Tritone ii-V-I</label>
+            <label for="prtt251check">Tritone ii-V<sup>7</sup>-I</label>
         </div>
+        <br />
+        <div id="progstring"></div>
     </div>
 </body> 
 </html> 
