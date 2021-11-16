@@ -17,6 +17,8 @@
         var prtt = new Array(); 
         var prtt251 = new Array();
         var prlh = new Array();
+        var prlhii = new Array();
+        var prlhv = new Array();
         var t; 
         var combo=0; 
         var flipping=0; 
@@ -46,8 +48,12 @@
         prtt251[0] = "TT ii-V<sup>7</sup> root";
         prtt251[1] = "TT ii-V<sup>7</sup> 1st";
         prtt251[2] = "TT ii-V<sup>7</sup> 2nd";
-        prlh[0] = "ii-V<sup>7</sup>-I LH A";
-        prlh[1] = "ii-V<sup>7</sup>-I LH B";
+        prlh[0] = "LH A ii-V<sup>7</sup>-I";
+        prlh[1] = "LH B ii-V<sup>7</sup>-I";
+        prlhii[0] = "LH A ii<sup>7</sup>";
+        prlhii[1] = "LH B ii<sup>7</sup>";
+        prlhv[0] = "LH A V<sup>7</sup>";
+        prlhv[1] =  "LH B V<sup>7</sup>";
 
         buildProg();
         function buildProg() {
@@ -97,6 +103,22 @@
                 for (k=0; k< keys.length; k++) {
                     for (j=0; j< prlh.length; j++) {
                         prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prlh[j];
+                        i++;
+                    }
+                }
+            }
+            if (document.getElementById("prlhiicheck").checked) {
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prlhii.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prlhii[j];
+                        i++;
+                    }
+                }
+            }
+            if (document.getElementById("prlhvcheck").checked) {
+                for (k=0; k< keys.length; k++) {
+                    for (j=0; j< prlhv.length; j++) {
+                        prog[i] = keys[k] + "<sup>&nbsp</sup> : " + prlhv[j];
                         i++;
                     }
                 }
@@ -166,24 +188,28 @@
     <div id="container">
         <h1 id="keyprog" class="keytext" onclick="newKeyProg()"><sup>&nbsp</sup>Start the Timer</h1>
         <p id="howMany" class="small"></p>
-        <input id="timer" onchange="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="10" step="1" value="10"/>
+        <input id="timer" onchange="getElementById('thebutton').value = getElementById('timer').value + ' seconds'" type="range" min="4" max="14" step="1" value="10"/>
         <input id ="thebutton" type="button" value="10 seconds" onclick="doAutoChange()" />
         <br />
         <div class="big">
             <input id ="pr251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
             <label for="pr251check">ii-V<sup>7</sup>-I</label>
             <input id ="prlhcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prlhcheck">Left Hand ii-V<sup>7</sup>-I</label>
+            <label for="prlhcheck">LH ii-V<sup>7</sup>-I</label>
+            <input id ="prlhiicheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prlhiicheck">LH ii<sup>7</sup></label>
+            <input id ="prlhvcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
+            <label for="prlhvcheck">LH V<sup>7</sup>-I</label>
             <br />
             <input id ="prsuscheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
             <label for="prsuscheck">sus</label>
             <input id ="prphrycheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prphrycheck">Phrygian</label>
+            <label for="prphrycheck">Phry</label>
             <br />
             <input id ="prttcheck" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prttcheck">Tritone V<sup>7</sup></label>
+            <label for="prttcheck">TT V<sup>7</sup></label>
             <input id ="prtt251check" type="checkbox" class="bigcheck" onclick="buildProg()" />
-            <label for="prtt251check">Tritone ii-V<sup>7</sup>-I</label>
+            <label for="prtt251check">TT ii-V<sup>7</sup>-I</label>
         </div>
         <br />
         <div id="progstring"></div>
